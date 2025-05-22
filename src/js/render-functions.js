@@ -51,3 +51,36 @@ export function showLoader() {
 export function hideLoader() {
   loader.classList.add('hidden');
 }
+
+const loadMoreBtn = document.querySelector('.load-more');
+const loaderMessage = document.querySelector('.loader2-message');
+
+export function hideLoadMore() {
+  loadMoreBtn.classList.add('hidden');
+}
+console.log('Showind load more button');
+
+export function showLoadMore() {
+  loadMoreBtn.classList.remove('hidden');
+}
+
+export function showLoaderMessage() {
+  loaderMessage.classList.remove('hidden');
+}
+console.log('Showing "Loading images, please wait..."');
+export function hideLoaderMessage() {
+  loaderMessage.classList.add('hidden');
+}
+export function checkEndOfCollection(currentPage, totalHits, perPage) {
+  const totalPages = Math.ceil(totalHits / perPage);
+  if (currentPage >= totalPages) {
+    hideLoadMore();
+    iziToast.info({
+      title: 'End of results',
+      message: "We're sorry, but you've reached the end of search results.",
+      position: 'topRight',
+    });
+  } else {
+    showLoadMore();
+  }
+}

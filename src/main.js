@@ -4,6 +4,10 @@ import {
   clearGallery,
   showLoader,
   hideLoader,
+  hideLoadMore,
+  showLoadMore,
+  showLoaderMessage,
+  hideLoaderMessage,
 } from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -14,6 +18,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 
 let searchQuery = '';
 let currentPage = 1;
+const perPage = 15;
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
@@ -44,7 +49,17 @@ form.addEventListener('submit', async event => {
     }
 
     createGallery(data.hits);
-    if (data.totalHits > 15) showLoadMore();
+
+    const totalPages = Math.ceil(data.totalHits / perPage);
+    if (currentPage < totalPages) {
+      showLoadMore();
+    } else {
+      iziToast.info({
+        title: 'End of results',
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
+    }
   } catch (error) {
     iziToast.error({
       title: 'Error',
@@ -64,9 +79,16 @@ loadMoreBtn.addEventListener('click', async () => {
   try {
     const data = await getImagesByQuery(searchQuery, currentPage);
     createGallery(data.hits);
-    const alreadyLoaded = currentPage * 15;
-    if (alreadyLoaded < data.totalHits) {
+
+    const totalPages = Math.ceil(data.totalHits / perPage);
+    if (currentPage < totalPages) {
       showLoadMore();
+    } else {
+      iziToast.info({
+        title: 'End of results',
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     }
   } catch (error) {
     iziToast.error({
@@ -78,22 +100,3 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
-
-function hideLoadMore() {
-  loadMoreBtn.classList.add('hidden');
-}
-console.log('Showing Load More button');
-
-function showLoadMore() {
-  loadMoreBtn.classList.remove('hidden');
-}
-
-const loaderMessage = document.querySelector('.loader-message');
-
-function showLoaderMessage() {
-  loaderMessage.classList.remove('hidden');
-}
-
-function hideLoaderMessage() {
-  loaderMessage.classList.add('hidden');
-}
