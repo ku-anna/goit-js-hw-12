@@ -8,6 +8,7 @@ import {
   showLoadMore,
   showLoaderMessage,
   hideLoaderMessage,
+  scrollAfterLoad,
 } from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -79,6 +80,7 @@ loadMoreBtn.addEventListener('click', async () => {
   try {
     const data = await getImagesByQuery(searchQuery, currentPage);
     createGallery(data.hits);
+    scrollAfterLoad();
 
     const totalPages = Math.ceil(data.totalHits / perPage);
     if (currentPage < totalPages) {

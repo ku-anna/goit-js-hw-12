@@ -84,3 +84,14 @@ export function checkEndOfCollection(currentPage, totalHits, perPage) {
     showLoadMore();
   }
 }
+
+export function scrollAfterLoad() {
+  const firstCard = document.querySelector('.gallery-item');
+  if (!firstCard) return;
+
+  const cardHeight = firstCard.getBoundingClientRect().height;
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
