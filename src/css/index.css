@@ -103,13 +103,6 @@ input:hover {
   flex: 0 0 calc((100% - 48px) / 3);
   box-sizing: border-box;
 }
-/*.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 1128px;
-  margin-bottom: 36px;
-}*/
 
 .gallery__image {
   width: 360px;
@@ -177,8 +170,10 @@ input:hover {
 .loader2-message {
   text-align: center;
   font-size: 16px;
-  color: #555;
+  color: #fffff6;
+  background-color: #4e75ff;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .loader2-message.hidden {

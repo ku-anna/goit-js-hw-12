@@ -86,7 +86,7 @@ export function checkEndOfCollection(currentPage, totalHits, perPage) {
 }
 
 export function scrollAfterLoad() {
-  const firstCard = document.querySelector('.gallery-item');
+  const firstCard = document.querySelector('.photo-card');
   if (!firstCard) return;
 
   const cardHeight = firstCard.getBoundingClientRect().height;

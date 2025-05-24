@@ -75,6 +75,7 @@ form.addEventListener('submit', async event => {
 loadMoreBtn.addEventListener('click', async () => {
   currentPage += 1;
   showLoader();
+  showLoaderMessage();
   hideLoadMore();
 
   try {
@@ -100,5 +101,6 @@ loadMoreBtn.addEventListener('click', async () => {
     });
   } finally {
     hideLoader();
+    hideLoaderMessage();
   }
 });
